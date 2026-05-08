@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="hero_name">李志伟 | 个人主页</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=3">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
 </head>
 <body>
@@ -13,6 +13,19 @@
         <div class="nav-container">
             <a href="#" class="nav-logo">King</a>
             <ul class="nav-menu">
+                <!-- 移动端：切换控件放在菜单内部顶部 -->
+                <li class="nav-controls-mobile">
+                    <div class="segmented-control theme-switch">
+                        <button class="theme-btn active" data-theme="dark" title="深色模式" onclick="applyTheme('dark')">🌙</button>
+                        <button class="theme-btn" data-theme="light" title="浅色模式" onclick="applyTheme('light')">☀️</button>
+                        <button class="theme-btn" data-theme="system" title="跟随系统" onclick="applyTheme('system')">💻</button>
+                    </div>
+                    <span class="nav-divider"></span>
+                    <div class="segmented-control lang-switch">
+                        <button class="lang-btn active" data-lang="zh" title="中文" onclick="switchLang('zh')">中</button>
+                        <button class="lang-btn" data-lang="en" title="English" onclick="switchLang('en')">EN</button>
+                    </div>
+                </li>
                 <li><a href="#home" class="nav-link active" data-i18n="nav_home">首页</a></li>
                 <li><a href="#about" class="nav-link" data-i18n="nav_about">关于</a></li>
                 <li><a href="#skills" class="nav-link" data-i18n="nav_skills">技能</a></li>
@@ -333,9 +346,9 @@
         </div>
     </footer>
 
-    <script src="js/i18n.js?v=2"></script>
-    <script src="js/theme.js?v=2"></script>
-    <script src="js/main.js?v=2"></script>
-    <script src="js/tools.js?v=2"></script>
+    <script src="js/i18n.js?v=3"></script>
+    <script src="js/theme.js?v=3"></script>
+    <script src="js/main.js?v=3"></script>
+    <script src="js/tools.js?v=3"></script>
 </body>
 </html>
