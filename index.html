@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>李志伟 | 个人主页</title>
+    <title data-i18n="hero_name">李志伟 | 个人主页</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
 </head>
@@ -13,13 +13,21 @@
         <div class="nav-container">
             <a href="#" class="nav-logo">King</a>
             <ul class="nav-menu">
-                <li><a href="#home" class="nav-link active">首页</a></li>
-                <li><a href="#about" class="nav-link">关于</a></li>
-                <li><a href="#skills" class="nav-link">技能</a></li>
-                <li><a href="#tools" class="nav-link">工具箱</a></li>
-                <li><a href="#projects" class="nav-link">项目</a></li>
-                <li><a href="#contact" class="nav-link">联系</a></li>
+                <li><a href="#home" class="nav-link active" data-i18n="nav_home">首页</a></li>
+                <li><a href="#about" class="nav-link" data-i18n="nav_about">关于</a></li>
+                <li><a href="#skills" class="nav-link" data-i18n="nav_skills">技能</a></li>
+                <li><a href="#tools" class="nav-link" data-i18n="nav_tools">工具箱</a></li>
+                <li><a href="#projects" class="nav-link" data-i18n="nav_projects">项目</a></li>
+                <li><a href="#contact" class="nav-link" data-i18n="nav_contact">联系</a></li>
             </ul>
+            <div class="nav-controls">
+                <button class="theme-btn active" data-theme="dark" title="深色模式" onclick="applyTheme('dark')"><span data-i18n="theme_dark">🌙</span></button>
+                <button class="theme-btn" data-theme="light" title="浅色模式" onclick="applyTheme('light')"><span data-i18n="theme_light">☀️</span></button>
+                <button class="theme-btn" data-theme="system" title="跟随系统" onclick="applyTheme('system')"><span data-i18n="theme_system">💻</span></button>
+                <span class="nav-divider">|</span>
+                <button class="lang-btn active" data-lang="zh" onclick="setLang('zh')">中</button>
+                <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+            </div>
             <div class="nav-toggle">
                 <span></span>
                 <span></span>
@@ -28,23 +36,23 @@
         </div>
     </nav>
 
-    <!-- Hero 区域 -->
+    <!-- Hero -->
     <section id="home" class="hero">
         <div class="hero-bg"></div>
         <div class="hero-content">
             <h1 class="hero-title">
-                <span class="greeting">你好，我是</span>
-                <span class="name">李志伟</span>
+                <span class="greeting" data-i18n="hero_greeting">你好，我是</span>
+                <span class="name" data-i18n="hero_name">李志伟</span>
             </h1>
-            <p class="hero-subtitle">全栈工程师 / 技术探索者</p>
-            <p class="hero-desc">用代码构建数字世界，用技术解决实际问题</p>
+            <p class="hero-subtitle" data-i18n="hero_subtitle">全栈工程师 / 技术探索者</p>
+            <p class="hero-desc" data-i18n="hero_desc">用代码构建数字世界，用技术解决实际问题</p>
             <div class="hero-btns">
-                <a href="#tools" class="btn btn-primary">在线工具</a>
-                <a href="#contact" class="btn btn-outline">联系我</a>
+                <a href="#tools" class="btn btn-primary" data-i18n="hero_btn_tools">在线工具</a>
+                <a href="#contact" class="btn btn-outline" data-i18n="hero_btn_contact">联系我</a>
             </div>
         </div>
         <div class="scroll-indicator">
-            <span>向下滚动</span>
+            <span data-i18n="scroll_hint">向下滚动</span>
             <div class="scroll-arrow"></div>
         </div>
     </section>
@@ -52,24 +60,24 @@
     <!-- 关于 -->
     <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title reveal">关于我</h2>
+            <h2 class="section-title reveal" data-i18n="about_title">关于我</h2>
             <div class="about-grid">
                 <div class="about-text reveal">
-                    <p>你好！我是一名热爱技术的全栈工程师，热衷于探索新技术并将其应用于实际项目中。</p>
-                    <p>从服务器架构到前端交互，从数据处理到自动化运维，我一直致力于构建高效、优雅的技术解决方案。</p>
-                    <p>我相信好的代码不仅解决问题，更能创造价值。</p>
+                    <p data-i18n="about_p1">你好！我是一名热爱技术的全栈工程师，热衷于探索新技术并将其应用于实际项目中。</p>
+                    <p data-i18n="about_p2">从服务器架构到前端交互，从数据处理到自动化运维，我一直致力于构建高效、优雅的技术解决方案。</p>
+                    <p data-i18n="about_p3">我相信好的代码不仅解决问题，更能创造价值。</p>
                     <div class="about-stats">
                         <div class="stat">
                             <span class="stat-num" data-count="5">0</span>
-                            <span class="stat-label">年+经验</span>
+                            <span class="stat-label" data-i18n="stat_exp">年+经验</span>
                         </div>
                         <div class="stat">
                             <span class="stat-num" data-count="50">0</span>
-                            <span class="stat-label">+项目</span>
+                            <span class="stat-label" data-i18n="stat_proj">+项目</span>
                         </div>
                         <div class="stat">
                             <span class="stat-num" data-count="24">0</span>
-                            <span class="stat-label">/7 在线</span>
+                            <span class="stat-label" data-i18n="stat_online">/7 在线</span>
                         </div>
                     </div>
                 </div>
@@ -85,82 +93,40 @@
     <!-- 技能 -->
     <section id="skills" class="section skills-section">
         <div class="container">
-            <h2 class="section-title reveal">技能栈</h2>
+            <h2 class="section-title reveal" data-i18n="skills_title">技能栈</h2>
             <div class="skills-grid">
                 <div class="skill-category reveal">
-                    <h3><span class="skill-icon">⚡</span> 后端开发</h3>
+                    <h3><span class="skill-icon">⚡</span> <span data-i18n="skill_backend">后端开发</span></h3>
                     <div class="skill-items">
-                        <div class="skill-item">
-                            <span class="skill-name">Python</span>
-                            <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Go</span>
-                            <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Node.js</span>
-                            <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">PHP</span>
-                            <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
-                        </div>
+                        <div class="skill-item"><span class="skill-name">Python</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+                        <div class="skill-item"><span class="skill-name">Go</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
+                        <div class="skill-item"><span class="skill-name">Node.js</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
+                        <div class="skill-item"><span class="skill-name">PHP</span><div class="skill-bar"><div class="skill-fill" data-width="70"></div></div></div>
                     </div>
                 </div>
                 <div class="skill-category reveal">
-                    <h3><span class="skill-icon">🎨</span> 前端开发</h3>
+                    <h3><span class="skill-icon">🎨</span> <span data-i18n="skill_frontend">前端开发</span></h3>
                     <div class="skill-items">
-                        <div class="skill-item">
-                            <span class="skill-name">HTML/CSS</span>
-                            <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">JavaScript</span>
-                            <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">React/Vue</span>
-                            <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
-                        </div>
+                        <div class="skill-item"><span class="skill-name">HTML/CSS</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+                        <div class="skill-item"><span class="skill-name">JS/TS</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
+                        <div class="skill-item"><span class="skill-name">React/Vue</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
                     </div>
                 </div>
                 <div class="skill-category reveal">
-                    <h3><span class="skill-icon">☁️</span> DevOps & 运维</h3>
+                    <h3><span class="skill-icon">☁️</span> <span data-i18n="skill_devops">DevOps & 运维</span></h3>
                     <div class="skill-items">
-                        <div class="skill-item">
-                            <span class="skill-name">Linux</span>
-                            <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Docker</span>
-                            <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Nginx</span>
-                            <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">CI/CD</span>
-                            <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
-                        </div>
+                        <div class="skill-item"><span class="skill-name">Linux</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+                        <div class="skill-item"><span class="skill-name">Docker</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+                        <div class="skill-item"><span class="skill-name">Nginx</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
+                        <div class="skill-item"><span class="skill-name">CI/CD</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
                     </div>
                 </div>
                 <div class="skill-category reveal">
-                    <h3><span class="skill-icon">🤖</span> AI & 数据</h3>
+                    <h3><span class="skill-icon">🤖</span> <span data-i18n="skill_ai">AI & 数据</span></h3>
                     <div class="skill-items">
-                        <div class="skill-item">
-                            <span class="skill-name">LLM / AI Agent</span>
-                            <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">数据分析</span>
-                            <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">数据库</span>
-                            <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
-                        </div>
+                        <div class="skill-item"><span class="skill-name">LLM / AI</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+                        <div class="skill-item"><span class="skill-name" data-i18n="tool_counter_desc" data-i18n-skip>数据分析</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
+                        <div class="skill-item"><span class="skill-name" data-i18n-skip>数据库</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
                     </div>
                 </div>
             </div>
@@ -170,137 +136,129 @@
     <!-- 工具箱 -->
     <section id="tools" class="section tools-section">
         <div class="container">
-            <h2 class="section-title reveal">🛠️ 在线工具箱</h2>
-            <p class="tools-intro reveal">日常开发小工具，全部在浏览器本地运行，你的数据不会上传到服务器</p>
+            <h2 class="section-title reveal" data-i18n="tools_title">🛠️ 在线工具箱</h2>
+            <p class="tools-intro reveal" data-i18n="tools_desc">日常开发小工具，全部在浏览器本地运行，你的数据不会上传到服务器</p>
 
-            <!-- 卡片网格 -->
             <div class="tool-cards" id="toolCards">
                 <div class="tool-card" data-tool="password">
                     <div class="tool-card-icon">🔑</div>
-                    <h3>密码生成器</h3>
-                    <p>生成高强度随机密码，自定义长度和字符类型</p>
-                    <span class="tool-card-tag">常用</span>
+                    <h3 data-i18n="tool_password">密码生成器</h3>
+                    <p data-i18n="tool_password_desc">生成高强度随机密码，自定义长度和字符类型</p>
+                    <span class="tool-card-tag" data-i18n="tool_tag_popular">常用</span>
                 </div>
                 <div class="tool-card" data-tool="counter">
                     <div class="tool-card-icon">📝</div>
-                    <h3>文本统计</h3>
-                    <p>实时统计字符数、字数、行数，带字数限制提醒</p>
-                    <span class="tool-card-tag">常用</span>
+                    <h3 data-i18n="tool_counter">文本统计</h3>
+                    <p data-i18n="tool_counter_desc">实时统计字符数、字数、行数，带字数限制提醒</p>
+                    <span class="tool-card-tag" data-i18n="tool_tag_popular">常用</span>
                 </div>
                 <div class="tool-card" data-tool="base64">
                     <div class="tool-card-icon">🔐</div>
-                    <h3>Base64 编解码</h3>
-                    <p>字符串与 Base64 之间双向编码/解码</p>
+                    <h3 data-i18n="tool_base64">Base64 编解码</h3>
+                    <p data-i18n="tool_base64_desc">字符串与 Base64 之间双向编码/解码</p>
                 </div>
                 <div class="tool-card" data-tool="jsonfmt">
                     <div class="tool-card-icon">📋</div>
-                    <h3>JSON 格式化</h3>
-                    <p>格式化、压缩、校验 JSON 字符串，定位错误</p>
+                    <h3 data-i18n="tool_json">JSON 格式化</h3>
+                    <p data-i18n="tool_json_desc">格式化、压缩、校验 JSON 字符串，定位错误</p>
                 </div>
                 <div class="tool-card" data-tool="timestamp">
                     <div class="tool-card-icon">⏰</div>
-                    <h3>时间戳转换</h3>
-                    <p>Unix 时间戳与日期时间互转，快捷取当前时间</p>
+                    <h3 data-i18n="tool_timestamp">时间戳转换</h3>
+                    <p data-i18n="tool_timestamp_desc">Unix 时间戳与日期时间互转，快捷取当前时间</p>
                 </div>
             </div>
 
-            <!-- 工具详情页 -->
             <div class="tool-detail" id="toolDetail" style="display:none">
-                <button class="btn btn-outline tool-back-btn" id="toolBack">← 返回工具箱</button>
+                <button class="btn btn-outline tool-back-btn" id="toolBack" data-i18n="tool_back">← 返回工具箱</button>
 
-                <!-- 密码生成器 -->
                 <div class="tool-detail-panel" id="detail-password">
-                    <h3>🔑 密码生成器</h3>
+                    <h3 data-i18n="tool_pw_title">🔑 密码生成器</h3>
                     <div class="tool-row">
-                        <label>密码长度</label>
-                        <input type="range" id="pw-length" min="4" max="64" value="16">
-                        <span id="pw-length-val">16</span>
+                        <label data-i18n="tool_pw_length">密码长度</label>
+                        <input type="range" id="pw-length" min="4" max="64" value="16"><span id="pw-length-val">16</span>
                     </div>
                     <div class="tool-row tool-checkboxes">
-                        <label><input type="checkbox" id="pw-upper" checked> 大写 A-Z</label>
-                        <label><input type="checkbox" id="pw-lower" checked> 小写 a-z</label>
-                        <label><input type="checkbox" id="pw-digits" checked> 数字 0-9</label>
-                        <label><input type="checkbox" id="pw-symbols"> 符号 !@#$%</label>
+                        <label><input type="checkbox" id="pw-upper" checked> <span data-i18n="tool_pw_upper">大写 A-Z</span></label>
+                        <label><input type="checkbox" id="pw-lower" checked> <span data-i18n="tool_pw_lower">小写 a-z</span></label>
+                        <label><input type="checkbox" id="pw-digits" checked> <span data-i18n="tool_pw_digits">数字 0-9</span></label>
+                        <label><input type="checkbox" id="pw-symbols"> <span data-i18n="tool_pw_symbols">符号 !@#$%</span></label>
                     </div>
                     <div class="tool-result-area">
-                        <input type="text" id="pw-result" readonly value="P@ssw0rd!2026">
-                        <button class="btn btn-primary tool-btn" id="pw-generate">生成</button>
-                        <button class="btn btn-outline tool-btn" id="pw-copy">复制</button>
+                        <input type="text" id="pw-result" readonly>
+                        <button class="btn btn-primary tool-btn" data-i18n="tool_pw_gen" id="pw-generate">生成</button>
+                        <button class="btn btn-outline tool-btn" data-i18n="tool_pw_copy" id="pw-copy">复制</button>
                     </div>
-                    <div class="pw-strength" id="pw-strength">
-                        <span>密码强度：</span>
+                    <div class="pw-strength">
+                        <span data-i18n="tool_pw_strength">密码强度：</span>
                         <div class="pw-strength-bar"><div class="pw-strength-fill" id="pw-strength-fill"></div></div>
-                        <span id="pw-strength-label">强</span>
+                        <span id="pw-strength-label" data-i18n="tool_pw_strong">强</span>
                     </div>
                 </div>
 
-                <!-- 文本统计 -->
                 <div class="tool-detail-panel" id="detail-counter">
-                    <h3>📝 文本统计</h3>
-                    <textarea id="counter-input" placeholder="粘贴或输入文字，实时统计..." rows="6"></textarea>
+                    <h3 data-i18n="tool_ct_title">📝 文本统计</h3>
+                    <textarea id="counter-input" rows="6" data-i18n="tool_ct_placeholder"></textarea>
                     <div class="counter-stats">
-                        <div class="counter-stat"><span class="counter-num" id="counter-chars">0</span>字符</div>
-                        <div class="counter-stat"><span class="counter-num" id="counter-chars-nosp">0</span>字符(无空格)</div>
-                        <div class="counter-stat"><span class="counter-num" id="counter-words">0</span>词语</div>
-                        <div class="counter-stat"><span class="counter-num" id="counter-lines">0</span>行</div>
+                        <div class="counter-stat"><span class="counter-num" id="counter-chars">0</span> <span data-i18n="tool_ct_chars">字符</span></div>
+                        <div class="counter-stat"><span class="counter-num" id="counter-chars-nosp">0</span> <span data-i18n="tool_ct_chars_nosp">字符(无空格)</span></div>
+                        <div class="counter-stat"><span class="counter-num" id="counter-words">0</span> <span data-i18n="tool_ct_words">词语</span></div>
+                        <div class="counter-stat"><span class="counter-num" id="counter-lines">0</span> <span data-i18n="tool_ct_lines">行</span></div>
                     </div>
                     <div class="tool-row">
-                        <label>字数限制</label>
+                        <label data-i18n="tool_ct_limit">字数限制</label>
                         <input type="number" id="counter-limit" value="2000" min="0">
                         <span id="counter-limit-status">0 / 2000</span>
                     </div>
                 </div>
 
-                <!-- Base64 编解码 -->
                 <div class="tool-detail-panel" id="detail-base64">
-                    <h3>🔐 Base64 编解码</h3>
-                    <textarea id="b64-input" placeholder="输入要编码或解码的文字..." rows="4"></textarea>
+                    <h3 data-i18n="tool_b64_title">🔐 Base64 编解码</h3>
+                    <textarea id="b64-input" rows="4" data-i18n="tool_b64_placeholder"></textarea>
                     <div class="tool-btn-group">
-                        <button class="btn btn-primary tool-btn" id="b64-encode">编码 →</button>
-                        <button class="btn btn-outline tool-btn" id="b64-decode">解码 →</button>
-                        <button class="btn btn-outline tool-btn" id="b64-clear">清空</button>
+                        <button class="btn btn-primary tool-btn" data-i18n="tool_b64_encode" id="b64-encode">编码 →</button>
+                        <button class="btn btn-outline tool-btn" data-i18n="tool_b64_decode" id="b64-decode">解码 →</button>
+                        <button class="btn btn-outline tool-btn" data-i18n="tool_b64_clear" id="b64-clear">清空</button>
                     </div>
-                    <textarea id="b64-output" readonly placeholder="结果..." rows="4"></textarea>
-                    <button class="btn btn-outline tool-btn" id="b64-copy">复制结果</button>
+                    <textarea id="b64-output" readonly rows="4" data-i18n="tool_b64_result_placeholder"></textarea>
+                    <button class="btn btn-outline tool-btn" data-i18n="tool_b64_copy" id="b64-copy">复制结果</button>
                 </div>
 
-                <!-- JSON 格式化 -->
                 <div class="tool-detail-panel" id="detail-jsonfmt">
-                    <h3>📋 JSON 格式化 / 压缩</h3>
-                    <textarea id="json-input" placeholder="粘贴 JSON 字符串..." rows="6"></textarea>
+                    <h3 data-i18n="tool_json_title">📋 JSON 格式化 / 压缩</h3>
+                    <textarea id="json-input" rows="6" data-i18n="tool_json_placeholder"></textarea>
                     <div class="tool-btn-group">
-                        <button class="btn btn-primary tool-btn" id="json-format">格式化</button>
-                        <button class="btn btn-outline tool-btn" id="json-compress">压缩</button>
-                        <button class="btn btn-outline tool-btn" id="json-validate">校验</button>
-                        <button class="btn btn-outline tool-btn" id="json-clear">清空</button>
+                        <button class="btn btn-primary tool-btn" data-i18n="tool_json_format" id="json-format">格式化</button>
+                        <button class="btn btn-outline tool-btn" data-i18n="tool_json_compress" id="json-compress">压缩</button>
+                        <button class="btn btn-outline tool-btn" data-i18n="tool_json_validate" id="json-validate">校验</button>
+                        <button class="btn btn-outline tool-btn" data-i18n="tool_json_clear" id="json-clear">清空</button>
                     </div>
-                    <textarea id="json-output" readonly placeholder="结果..." rows="6"></textarea>
+                    <textarea id="json-output" readonly rows="6" data-i18n="tool_b64_result_placeholder"></textarea>
                     <div id="json-status"></div>
-                    <button class="btn btn-outline tool-btn" id="json-copy">复制结果</button>
+                    <button class="btn btn-outline tool-btn" data-i18n="tool_json_copy" id="json-copy">复制结果</button>
                 </div>
 
-                <!-- 时间戳转换 -->
                 <div class="tool-detail-panel" id="detail-timestamp">
-                    <h3>⏰ 时间戳转换器</h3>
+                    <h3 data-i18n="tool_ts_title">⏰ 时间戳转换器</h3>
                     <div class="tool-converter">
                         <div class="tool-convert-block">
-                            <label>📅 日期时间 → 时间戳</label>
+                            <label data-i18n="tool_ts_to_unix">📅 日期时间 → 时间戳</label>
                             <input type="datetime-local" id="ts-datetime">
-                            <button class="btn btn-primary tool-btn" id="ts-to-unix">转换为时间戳</button>
+                            <button class="btn btn-primary tool-btn" data-i18n="tool_ts_convert_unix" id="ts-to-unix">转换为时间戳</button>
                             <div class="ts-result" id="ts-unix-result">—</div>
                         </div>
                         <div class="tool-convert-divider">⟷</div>
                         <div class="tool-convert-block">
-                            <label>⏱️ 时间戳 → 日期时间</label>
-                            <input type="number" id="ts-unix-input" placeholder="输入时间戳 (秒)">
-                            <button class="btn btn-primary tool-btn" id="ts-to-date">转换为日期</button>
+                            <label data-i18n="tool_ts_to_date">⏱️ 时间戳 → 日期时间</label>
+                            <input type="number" id="ts-unix-input" data-i18n="tool_ts_placeholder">
+                            <button class="btn btn-primary tool-btn" data-i18n="tool_ts_convert_date" id="ts-to-date">转换为日期</button>
                             <div class="ts-result" id="ts-date-result">—</div>
                         </div>
                     </div>
                     <div class="ts-quick-links">
-                        <span>快捷：</span>
-                        <button class="btn btn-outline" id="ts-now">现在</button>
-                        <button class="btn btn-outline" id="ts-today">今天 00:00</button>
+                        <span data-i18n="tool_ts_quick">快捷：</span>
+                        <button class="btn btn-outline" data-i18n="tool_ts_now" id="ts-now">现在</button>
+                        <button class="btn btn-outline" data-i18n="tool_ts_today" id="ts-today">今天 00:00</button>
                     </div>
                 </div>
             </div>
@@ -310,47 +268,31 @@
     <!-- 项目 -->
     <section id="projects" class="section">
         <div class="container">
-            <h2 class="section-title reveal">我的项目</h2>
+            <h2 class="section-title reveal" data-i18n="projects_title">我的项目</h2>
             <div class="projects-grid">
                 <div class="project-card reveal">
                     <div class="project-icon">🚀</div>
-                    <h3>自动化运维平台</h3>
-                    <p>一站式服务器管理、监控告警、自动化部署平台</p>
-                    <div class="project-tags">
-                        <span>Python</span>
-                        <span>Docker</span>
-                        <span>Nginx</span>
-                    </div>
+                    <h3 data-i18n="proj1_title">自动化运维平台</h3>
+                    <p data-i18n="proj1_desc">一站式服务器管理、监控告警、自动化部署平台</p>
+                    <div class="project-tags"><span>Python</span><span>Docker</span><span>Nginx</span></div>
                 </div>
                 <div class="project-card reveal">
                     <div class="project-icon">🤖</div>
-                    <h3>AI 智能助手</h3>
-                    <p>基于 LLM 的智能对话系统，支持多平台接入</p>
-                    <div class="project-tags">
-                        <span>LLM</span>
-                        <span>API</span>
-                        <span>WebSocket</span>
-                    </div>
+                    <h3 data-i18n="proj2_title">AI 智能助手</h3>
+                    <p data-i18n="proj2_desc">基于 LLM 的智能对话系统，支持多平台接入</p>
+                    <div class="project-tags"><span>LLM</span><span>API</span><span>WebSocket</span></div>
                 </div>
                 <div class="project-card reveal">
                     <div class="project-icon">📊</div>
-                    <h3>台账管理系统</h3>
-                    <p>高效的数据台账生成、导出与管理工具</p>
-                    <div class="project-tags">
-                        <span>Python</span>
-                        <span>PDF</span>
-                        <span>自动化</span>
-                    </div>
+                    <h3 data-i18n="proj3_title">台账管理系统</h3>
+                    <p data-i18n="proj3_desc">高效的数据台账生成、导出与管理工具</p>
+                    <div class="project-tags"><span>Python</span><span>PDF</span><span>自动化</span></div>
                 </div>
                 <div class="project-card reveal">
                     <div class="project-icon">🌐</div>
-                    <h3>个人云盘</h3>
-                    <p>轻量级私有云存储方案，安全可靠</p>
-                    <div class="project-tags">
-                        <span>Go</span>
-                        <span>对象存储</span>
-                        <span>API</span>
-                    </div>
+                    <h3 data-i18n="proj4_title">个人云盘</h3>
+                    <p data-i18n="proj4_desc">轻量级私有云存储方案，安全可靠</p>
+                    <div class="project-tags"><span>Go</span><span>对象存储</span><span>API</span></div>
                 </div>
             </div>
         </div>
@@ -359,17 +301,17 @@
     <!-- 联系 -->
     <section id="contact" class="section contact-section">
         <div class="container">
-            <h2 class="section-title reveal">联系我</h2>
+            <h2 class="section-title reveal" data-i18n="contact_title">联系我</h2>
             <div class="contact-content reveal">
-                <p class="contact-intro">如果你有想法、合作或者只是想聊聊天，随时联系我！</p>
+                <p class="contact-intro" data-i18n="contact_intro">如果你有想法、合作或者只是想聊聊天，随时联系我！</p>
                 <div class="contact-links">
                     <a href="mailto:lizhiwei@example.com" class="contact-item">
                         <span class="contact-emoji">📧</span>
-                        <span>lizhiwei@example.com</span>
+                        <span data-i18n="contact_email">lizhiwei@example.com</span>
                     </a>
                     <a href="#" class="contact-item">
                         <span class="contact-emoji">💬</span>
-                        <span>微信：kingrylee0619</span>
+                        <span data-i18n="contact_wechat">微信：kingrylee0619</span>
                     </a>
                     <a href="https://github.com/Kingry-Lee" target="_blank" class="contact-item">
                         <span class="contact-emoji">🐙</span>
@@ -383,10 +325,12 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 李志伟. Built with ❤️</p>
+            <p data-i18n="footer">© 2026 李志伟. Built with ❤️</p>
         </div>
     </footer>
 
+    <script src="js/i18n.js"></script>
+    <script src="js/theme.js"></script>
     <script src="js/main.js"></script>
     <script src="js/tools.js"></script>
 </body>
