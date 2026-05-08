@@ -1140,40 +1140,56 @@ footer p {
         pointer-events: all;
     }
 
-    /* 移动端：导航控件始终可见，位于logo和汉堡之间 */
+    /* 移动端：导航控件始终可见，位于logo右侧、汉堡左侧 */
+    .nav-container {
+        gap: 4px;
+        overflow: hidden;
+    }
+
     .nav-controls {
         display: flex;
-        gap: 6px;
+        align-items: center;
+        gap: 4px;
         margin-left: auto;
-        margin-right: 8px;
+        margin-right: 2px;
+        flex-shrink: 0;
     }
 
     .segmented-control {
         padding: 2px;
-        border-radius: 8px;
+        border-radius: 7px;
+        gap: 1px;
     }
 
     .theme-btn, .lang-btn {
-        padding: 4px 7px;
-        font-size: 0.75rem;
-        border-radius: 6px;
-        min-width: 28px;
+        padding: 3px 5px;
+        font-size: 0.7rem;
+        border-radius: 5px;
+        min-width: 24px;
         text-align: center;
+        line-height: 1.2;
     }
 
     .lang-btn {
-        min-width: 26px;
-        font-size: 0.72rem;
-        font-weight: 600;
+        min-width: 22px;
+        font-size: 0.68rem;
+        font-weight: 700;
     }
 
     .nav-divider {
-        height: 16px;
+        height: 14px;
+        flex-shrink: 0;
     }
 
     .nav-toggle {
         display: flex;
         flex-shrink: 0;
+        padding: 6px;
+    }
+
+    .nav-toggle span {
+        width: 20px;
+        height: 2px;
     }
 
     .nav-link { font-size: 1.05rem; }
