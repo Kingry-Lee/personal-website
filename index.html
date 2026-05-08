@@ -20,13 +20,17 @@
                 <li><a href="#projects" class="nav-link" data-i18n="nav_projects">项目</a></li>
                 <li><a href="#contact" class="nav-link" data-i18n="nav_contact">联系</a></li>
             </ul>
-            <div class="nav-controls">
-                <button class="theme-btn active" data-theme="dark" title="深色模式" onclick="applyTheme('dark')"><span data-i18n="theme_dark">🌙</span></button>
-                <button class="theme-btn" data-theme="light" title="浅色模式" onclick="applyTheme('light')"><span data-i18n="theme_light">☀️</span></button>
-                <button class="theme-btn" data-theme="system" title="跟随系统" onclick="applyTheme('system')"><span data-i18n="theme_system">💻</span></button>
-                <span class="nav-divider">|</span>
-                <button class="lang-btn active" data-lang="zh" onclick="setLang('zh')">中</button>
-                <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+            <div class="nav-controls" id="navControls">
+                <div class="segmented-control theme-switch">
+                    <button class="theme-btn active" data-theme="dark" title="深色模式" onclick="applyTheme('dark')">🌙</button>
+                    <button class="theme-btn" data-theme="light" title="浅色模式" onclick="applyTheme('light')">☀️</button>
+                    <button class="theme-btn" data-theme="system" title="跟随系统" onclick="applyTheme('system')">💻</button>
+                </div>
+                <span class="nav-divider"></span>
+                <div class="segmented-control lang-switch">
+                    <button class="lang-btn active" data-lang="zh" title="中文" onclick="switchLang('zh')">中</button>
+                    <button class="lang-btn" data-lang="en" title="English" onclick="switchLang('en')">EN</button>
+                </div>
             </div>
             <div class="nav-toggle">
                 <span></span>
@@ -329,9 +333,9 @@
         </div>
     </footer>
 
-    <script src="js/i18n.js"></script>
-    <script src="js/theme.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/tools.js"></script>
+    <script src="js/i18n.js?v=2"></script>
+    <script src="js/theme.js?v=2"></script>
+    <script src="js/main.js?v=2"></script>
+    <script src="js/tools.js?v=2"></script>
 </body>
 </html>

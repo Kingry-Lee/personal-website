@@ -15,31 +15,22 @@ function getSystemTheme() {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? DARK : LIGHT;
 }
 
-function getEffectiveTheme() {
-  const saved = getSavedTheme();
-  return saved === SYSTEM ? getSystemTheme() : saved;
-}
-
 function applyTheme(theme) {
   const effective = theme === SYSTEM ? getSystemTheme() : theme;
   document.documentElement.setAttribute('data-theme', effective);
   document.documentElement.setAttribute('data-theme-mode', theme);
   localStorage.setItem(THEME_KEY, theme);
-  updateThemeBtnText();
-}
 
-function cycleTheme() {
-  const current = getSavedTheme();
-  const next = current === DARK ? LIGHT : current === LIGHT ? SYSTEM : DARK;
-  applyTheme(next);
-}
-
-function updateThemeBtnText() {
-  const theme = getSavedTheme();
   document.querySelectorAll('.theme-btn').forEach(btn => {
-    const mode = btn.dataset.theme;
-    btn.classList.toggle('active', mode === theme);
+    btn.classList.toggle('active', btn.dataset.theme === theme);
   });
+}
+
+// 语言切换（供 onclick 调用）
+function switchLang(lang) {
+  if (typeof setLang === 'function') {
+    setLang(lang);
+  }
 }
 
 // 监听系统主题变化
