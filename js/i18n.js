@@ -264,8 +264,7 @@ function setLang(lang) {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
 
-  // 更新主题按钮文字
-  updateThemeBtnText();
+  // 主题按钮用 emoji 无需翻译
 
   // 触发自定义事件，通知 tools.js 等
   document.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
