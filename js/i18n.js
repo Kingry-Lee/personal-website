@@ -110,7 +110,7 @@ const i18n = {
     /* 联系 */
     contact_title: '联系我',
     contact_intro: '如果你有想法、合作或者只是想聊聊天，随时联系我！',
-    contact_email: 'lizhiwei@example.com',
+    contact_email: 'me@lizhiwei.eu.cc',
     contact_wechat: '微信：kingrylee0619',
 
     /* Footer */
@@ -222,7 +222,7 @@ const i18n = {
 
     contact_title: 'Contact Me',
     contact_intro: 'If you have ideas, collaboration opportunities, or just want to chat, feel free to reach out!',
-    contact_email: 'lizhiwei@example.com',
+    contact_email: 'me@lizhiwei.eu.cc',
     contact_wechat: 'WeChat: kingrylee0619',
 
     footer: '© 2026 KingryLee. Built with ❤️',
