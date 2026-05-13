@@ -4,10 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="hero_name">李志伟 | 个人主页</title>
-    <link rel="stylesheet" href="css/style.css?v=4">
+
+    <!-- SEO -->
+    <meta name="description" content="李志伟（KingryLee）的个人主页 — 全栈工程师 / 技术探索者，提供密码生成、Base64/URL 编解码、JSON 格式化、UUID 生成、时间戳转换等在线小工具，全部在浏览器本地运行。">
+    <meta name="keywords" content="李志伟,KingryLee,个人主页,全栈工程师,在线工具,密码生成,Base64,JSON 格式化,UUID,时间戳">
+    <meta name="author" content="李志伟 KingryLee">
+    <meta name="theme-color" content="#0a0a0f" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f5f5fa" media="(prefers-color-scheme: light)">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lizhiwei.eu.cc/">
+    <meta property="og:title" content="李志伟 | 个人主页 & 在线工具箱">
+    <meta property="og:description" content="全栈工程师 / 技术探索者 — 个人作品与浏览器端开发小工具集。">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:locale:alternate" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="李志伟 | 个人主页 & 在线工具箱">
+    <meta name="twitter:description" content="全栈工程师 / 技术探索者 — 个人作品与浏览器端开发小工具集。">
+
+    <!-- 同步执行的主题初始化脚本：消除主题切换的 FOUC（首次绘制前完成） -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'system';
+                var effective = saved === 'system'
+                    ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+                    : saved;
+                var root = document.documentElement;
+                root.setAttribute('data-theme', effective);
+                root.setAttribute('data-theme-mode', saved);
+                var lang = localStorage.getItem('lang');
+                if (lang === 'en') root.lang = 'en';
+            } catch (e) { /* localStorage 可能被禁用，忽略即可 */ }
+        })();
+    </script>
+
+    <link rel="stylesheet" href="css/style.css?v=5">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
 </head>
 <body>
+    <!-- 顶部滚动进度条 -->
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
     <!-- 导航栏 -->
     <nav id="navbar">
         <div class="nav-container">
@@ -45,7 +86,7 @@
                     <button class="lang-btn" data-lang="en" title="English" onclick="switchLang('en')">EN</button>
                 </div>
             </div>
-            <div class="nav-toggle">
+            <div class="nav-toggle" aria-label="切换菜单">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -55,7 +96,12 @@
 
     <!-- Hero -->
     <section id="home" class="hero">
-        <div class="hero-bg"></div>
+        <div class="hero-bg" aria-hidden="true">
+            <div class="aurora aurora-1"></div>
+            <div class="aurora aurora-2"></div>
+            <div class="aurora aurora-3"></div>
+            <div class="grid-layer"></div>
+        </div>
         <div class="hero-content">
             <h1 class="hero-title">
                 <span class="greeting" data-i18n="hero_greeting">你好，我是</span>
@@ -93,8 +139,8 @@
                             <span class="stat-label" data-i18n="stat_proj">+项目</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-num" data-count="24">0</span>
-                            <span class="stat-label" data-i18n="stat_online">/7 在线</span>
+                            <span class="stat-num" data-count="12">0</span>
+                            <span class="stat-label" data-i18n="stat_repos">开源仓库</span>
                         </div>
                     </div>
                 </div>
@@ -112,7 +158,7 @@
         <div class="container">
             <h2 class="section-title reveal" data-i18n="skills_title">技能栈</h2>
             <div class="skills-grid">
-                <div class="skill-category reveal">
+                <div class="skill-category reveal spotlight">
                     <h3><span class="skill-icon">⚡</span> <span data-i18n="skill_backend">后端开发</span></h3>
                     <div class="skill-items">
                         <div class="skill-item"><span class="skill-name">Python</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
@@ -121,7 +167,7 @@
                         <div class="skill-item"><span class="skill-name">PHP</span><div class="skill-bar"><div class="skill-fill" data-width="70"></div></div></div>
                     </div>
                 </div>
-                <div class="skill-category reveal">
+                <div class="skill-category reveal spotlight">
                     <h3><span class="skill-icon">🎨</span> <span data-i18n="skill_frontend">前端开发</span></h3>
                     <div class="skill-items">
                         <div class="skill-item"><span class="skill-name">HTML/CSS</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
@@ -129,7 +175,7 @@
                         <div class="skill-item"><span class="skill-name">React/Vue</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
                     </div>
                 </div>
-                <div class="skill-category reveal">
+                <div class="skill-category reveal spotlight">
                     <h3><span class="skill-icon">☁️</span> <span data-i18n="skill_devops">DevOps & 运维</span></h3>
                     <div class="skill-items">
                         <div class="skill-item"><span class="skill-name">Linux</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
@@ -138,11 +184,11 @@
                         <div class="skill-item"><span class="skill-name">CI/CD</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
                     </div>
                 </div>
-                <div class="skill-category reveal">
+                <div class="skill-category reveal spotlight">
                     <h3><span class="skill-icon">🤖</span> <span data-i18n="skill_ai">AI & 数据</span></h3>
                     <div class="skill-items">
                         <div class="skill-item"><span class="skill-name">LLM / AI</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
-                        <div class="skill-item"><span class="skill-name" data-i18n="tool_counter_desc" data-i18n-skip>数据分析</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
+                        <div class="skill-item"><span class="skill-name" data-i18n-skip>数据分析</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
                         <div class="skill-item"><span class="skill-name" data-i18n-skip>数据库</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
                     </div>
                 </div>
@@ -157,32 +203,43 @@
             <p class="tools-intro reveal" data-i18n="tools_desc">日常开发小工具，全部在浏览器本地运行，你的数据不会上传到服务器</p>
 
             <div class="tool-cards" id="toolCards">
-                <div class="tool-card" data-tool="password">
+                <div class="tool-card spotlight" data-tool="password">
                     <div class="tool-card-icon">🔑</div>
                     <h3 data-i18n="tool_password">密码生成器</h3>
                     <p data-i18n="tool_password_desc">生成高强度随机密码，自定义长度和字符类型</p>
                     <span class="tool-card-tag" data-i18n="tool_tag_popular">常用</span>
                 </div>
-                <div class="tool-card" data-tool="counter">
+                <div class="tool-card spotlight" data-tool="counter">
                     <div class="tool-card-icon">📝</div>
                     <h3 data-i18n="tool_counter">文本统计</h3>
                     <p data-i18n="tool_counter_desc">实时统计字符数、字数、行数，带字数限制提醒</p>
                     <span class="tool-card-tag" data-i18n="tool_tag_popular">常用</span>
                 </div>
-                <div class="tool-card" data-tool="base64">
+                <div class="tool-card spotlight" data-tool="base64">
                     <div class="tool-card-icon">🔐</div>
                     <h3 data-i18n="tool_base64">Base64 编解码</h3>
                     <p data-i18n="tool_base64_desc">字符串与 Base64 之间双向编码/解码</p>
                 </div>
-                <div class="tool-card" data-tool="jsonfmt">
+                <div class="tool-card spotlight" data-tool="jsonfmt">
                     <div class="tool-card-icon">📋</div>
                     <h3 data-i18n="tool_json">JSON 格式化</h3>
                     <p data-i18n="tool_json_desc">格式化、压缩、校验 JSON 字符串，定位错误</p>
                 </div>
-                <div class="tool-card" data-tool="timestamp">
+                <div class="tool-card spotlight" data-tool="timestamp">
                     <div class="tool-card-icon">⏰</div>
                     <h3 data-i18n="tool_timestamp">时间戳转换</h3>
                     <p data-i18n="tool_timestamp_desc">Unix 时间戳与日期时间互转，快捷取当前时间</p>
+                </div>
+                <div class="tool-card spotlight" data-tool="urlcodec">
+                    <div class="tool-card-icon">🔗</div>
+                    <h3 data-i18n="tool_url">URL 编解码</h3>
+                    <p data-i18n="tool_url_desc">对 URL 中的特殊字符进行编码与解码</p>
+                </div>
+                <div class="tool-card spotlight" data-tool="uuid">
+                    <div class="tool-card-icon">🆔</div>
+                    <h3 data-i18n="tool_uuid">UUID 生成器</h3>
+                    <p data-i18n="tool_uuid_desc">生成符合 RFC 4122 的随机 UUID v4</p>
+                    <span class="tool-card-tag" data-i18n="tool_tag_popular">常用</span>
                 </div>
             </div>
 
@@ -278,6 +335,38 @@
                         <button class="btn btn-outline" data-i18n="tool_ts_today" id="ts-today">今天 00:00</button>
                     </div>
                 </div>
+
+                <!-- URL 编解码 -->
+                <div class="tool-detail-panel" id="detail-urlcodec">
+                    <h3 data-i18n="tool_url_title">🔗 URL 编解码</h3>
+                    <textarea id="url-input" rows="4" data-i18n="tool_url_placeholder"></textarea>
+                    <div class="tool-btn-group">
+                        <button class="btn btn-primary tool-btn" data-i18n="tool_url_encode" id="url-encode">编码 →</button>
+                        <button class="btn btn-outline tool-btn" data-i18n="tool_url_decode" id="url-decode">解码 →</button>
+                        <button class="btn btn-outline tool-btn" data-i18n="tool_url_clear" id="url-clear">清空</button>
+                    </div>
+                    <textarea id="url-output" readonly rows="4" data-i18n="tool_b64_result_placeholder"></textarea>
+                    <button class="btn btn-outline tool-btn" data-i18n="tool_url_copy" id="url-copy">复制结果</button>
+                </div>
+
+                <!-- UUID 生成器 -->
+                <div class="tool-detail-panel" id="detail-uuid">
+                    <h3 data-i18n="tool_uuid_title">🆔 UUID v4 生成器</h3>
+                    <div class="tool-row">
+                        <label data-i18n="tool_uuid_count">生成数量</label>
+                        <input type="number" id="uuid-count" min="1" max="100" value="5">
+                    </div>
+                    <div class="tool-row tool-checkboxes">
+                        <label><input type="checkbox" id="uuid-upper"> <span data-i18n="tool_uuid_format_upper">大写</span></label>
+                        <label><input type="checkbox" id="uuid-dash" checked> <span data-i18n="tool_uuid_format_dash">保留连字符</span></label>
+                    </div>
+                    <div class="tool-btn-group">
+                        <button class="btn btn-primary tool-btn" data-i18n="tool_uuid_gen" id="uuid-generate">🎲 生成</button>
+                        <button class="btn btn-outline tool-btn" data-i18n="tool_uuid_copy" id="uuid-copy">复制全部</button>
+                        <button class="btn btn-outline tool-btn" data-i18n="tool_uuid_clear" id="uuid-clear">清空</button>
+                    </div>
+                    <div class="uuid-list" id="uuid-list"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -287,25 +376,25 @@
         <div class="container">
             <h2 class="section-title reveal" data-i18n="projects_title">我的项目</h2>
             <div class="projects-grid">
-                <div class="project-card reveal">
+                <div class="project-card reveal spotlight">
                     <div class="project-icon">🚀</div>
                     <h3 data-i18n="proj1_title">自动化运维平台</h3>
                     <p data-i18n="proj1_desc">一站式服务器管理、监控告警、自动化部署平台</p>
                     <div class="project-tags"><span>Python</span><span>Docker</span><span>Nginx</span></div>
                 </div>
-                <div class="project-card reveal">
+                <div class="project-card reveal spotlight">
                     <div class="project-icon">🤖</div>
                     <h3 data-i18n="proj2_title">AI 智能助手</h3>
                     <p data-i18n="proj2_desc">基于 LLM 的智能对话系统，支持多平台接入</p>
                     <div class="project-tags"><span>LLM</span><span>API</span><span>WebSocket</span></div>
                 </div>
-                <div class="project-card reveal">
+                <div class="project-card reveal spotlight">
                     <div class="project-icon">📊</div>
                     <h3 data-i18n="proj3_title">台账管理系统</h3>
                     <p data-i18n="proj3_desc">高效的数据台账生成、导出与管理工具</p>
                     <div class="project-tags"><span>Python</span><span>PDF</span><span>自动化</span></div>
                 </div>
-                <div class="project-card reveal">
+                <div class="project-card reveal spotlight">
                     <div class="project-icon">🌐</div>
                     <h3 data-i18n="proj4_title">个人云盘</h3>
                     <p data-i18n="proj4_desc">轻量级私有云存储方案，安全可靠</p>
@@ -322,15 +411,15 @@
             <div class="contact-content reveal">
                 <p class="contact-intro" data-i18n="contact_intro">如果你有想法、合作或者只是想聊聊天，随时联系我！</p>
                 <div class="contact-links">
-                    <a href="mailto:me@lizhiwei.eu.cc" class="contact-item">
+                    <a href="mailto:me@lizhiwei.eu.cc" class="contact-item spotlight">
                         <span class="contact-emoji">📧</span>
                         <span data-i18n="contact_email">me@lizhiwei.eu.cc</span>
                     </a>
-                    <a href="#" class="contact-item">
+                    <a href="#" class="contact-item spotlight">
                         <span class="contact-emoji">💬</span>
                         <span data-i18n="contact_wechat">微信：kingrylee0619</span>
                     </a>
-                    <a href="https://github.com/Kingry-Lee" target="_blank" class="contact-item">
+                    <a href="https://github.com/Kingry-Lee" target="_blank" rel="noopener" class="contact-item spotlight">
                         <span class="contact-emoji">🐙</span>
                         <span>GitHub</span>
                     </a>
@@ -346,9 +435,20 @@
         </div>
     </footer>
 
-    <script src="js/i18n.js?v=4"></script>
-    <script src="js/theme.js?v=4"></script>
-    <script src="js/main.js?v=4"></script>
-    <script src="js/tools.js?v=4"></script>
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" aria-label="返回顶部" data-i18n-aria="aria_back_to_top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 19V5"></path>
+            <path d="M5 12l7-7 7 7"></path>
+        </svg>
+    </button>
+
+    <!-- Toast 容器 -->
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="js/i18n.js?v=5"></script>
+    <script src="js/theme.js?v=5"></script>
+    <script src="js/main.js?v=5"></script>
+    <script src="js/tools.js?v=5"></script>
 </body>
 </html>

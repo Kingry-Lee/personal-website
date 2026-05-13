@@ -73,6 +73,10 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern", "liga", "calt";
 }
 
 a { color: inherit; text-decoration: none; }
@@ -284,10 +288,76 @@ img { max-width: 100%; }
 .hero-bg {
     position: absolute;
     inset: 0;
-    background:
-        radial-gradient(ellipse at 20% 50%, rgba(108, 99, 255, 0.12) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(224, 64, 251, 0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 80%, rgba(108, 99, 255, 0.06) 0%, transparent 50%);
+    overflow: hidden;
+    pointer-events: none;
+    /* 鼠标视差通过 CSS 变量驱动：0-100 范围（百分比），由 JS 写入 */
+    --mx: 50;
+    --my: 50;
+}
+
+/* --- 极光层 --- */
+.aurora {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.55;
+    mix-blend-mode: screen;
+    will-change: transform;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] .aurora {
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+}
+
+.aurora-1 {
+    width: 520px;
+    height: 520px;
+    left: 10%;
+    top: 8%;
+    background: radial-gradient(circle, #6c63ff 0%, transparent 65%);
+    animation: aurora1 22s ease-in-out infinite;
+    transform: translate(calc((var(--mx) - 50) * 0.4px), calc((var(--my) - 50) * 0.4px));
+}
+
+.aurora-2 {
+    width: 460px;
+    height: 460px;
+    right: 8%;
+    top: 18%;
+    background: radial-gradient(circle, #e040fb 0%, transparent 65%);
+    animation: aurora2 26s ease-in-out infinite;
+    transform: translate(calc((var(--mx) - 50) * -0.5px), calc((var(--my) - 50) * 0.3px));
+}
+
+.aurora-3 {
+    width: 600px;
+    height: 600px;
+    left: 35%;
+    bottom: -15%;
+    background: radial-gradient(circle, #00d4ff 0%, transparent 65%);
+    animation: aurora3 30s ease-in-out infinite;
+    transform: translate(calc((var(--mx) - 50) * 0.3px), calc((var(--my) - 50) * -0.4px));
+}
+
+/* --- 栅格层 --- */
+.grid-layer {
+    position: absolute;
+    inset: -10%;
+    background-image:
+        linear-gradient(rgba(108, 99, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108, 99, 255, 0.06) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    animation: gridDrift 28s linear infinite;
+}
+
+[data-theme="light"] .grid-layer {
+    background-image:
+        linear-gradient(rgba(108, 99, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108, 99, 255, 0.08) 1px, transparent 1px);
 }
 
 .hero-content {
@@ -1224,4 +1294,344 @@ footer p {
 
 @media (max-width: 480px) {
     .tool-cards { grid-template-columns: 1fr; }
+}
+
+/* ============================================
+   v5 升级：极光动画、毛玻璃光斑、滚动进度、
+   返回顶部、Toast、URL/UUID 工具样式
+   ============================================ */
+
+/* --- Aurora & Grid 关键帧 --- */
+@keyframes aurora1 {
+    0%, 100% { transform: translate(calc((var(--mx, 50) - 50) * 0.4px), calc((var(--my, 50) - 50) * 0.4px)) scale(1); }
+    50%      { transform: translate(calc((var(--mx, 50) - 50) * 0.4px + 60px), calc((var(--my, 50) - 50) * 0.4px - 30px)) scale(1.15); }
+}
+@keyframes aurora2 {
+    0%, 100% { transform: translate(calc((var(--mx, 50) - 50) * -0.5px), calc((var(--my, 50) - 50) * 0.3px)) scale(1); }
+    50%      { transform: translate(calc((var(--mx, 50) - 50) * -0.5px - 40px), calc((var(--my, 50) - 50) * 0.3px + 50px)) scale(1.2); }
+}
+@keyframes aurora3 {
+    0%, 100% { transform: translate(calc((var(--mx, 50) - 50) * 0.3px), calc((var(--my, 50) - 50) * -0.4px)) scale(1); }
+    50%      { transform: translate(calc((var(--mx, 50) - 50) * 0.3px - 80px), calc((var(--my, 50) - 50) * -0.4px - 20px)) scale(0.92); }
+}
+@keyframes gridDrift {
+    from { background-position: 0 0, 0 0; }
+    to   { background-position: 56px 56px, 56px 56px; }
+}
+
+/* --- 毛玻璃 + 鼠标光斑追随（spotlight） --- */
+/* 所有需要光斑的卡片：.skill-category、.tool-card、.project-card、.contact-item、.tool-detail-panel */
+.spotlight {
+    position: relative;
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    /* 局部 CSS 变量，由 JS 鼠标移动写入 0-100（百分比） */
+    --mx: 50;
+    --my: 50;
+}
+
+[data-theme="dark"] .spotlight {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.7) 0%, rgba(18, 18, 26, 0.85) 100%);
+}
+[data-theme="light"] .spotlight {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(245, 245, 250, 0.7) 100%);
+}
+
+/* 光斑效果：用 ::after 承载（避免与已有 ::before 边框冲突） */
+.spotlight::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(
+        420px circle at calc(var(--mx) * 1%) calc(var(--my) * 1%),
+        rgba(108, 99, 255, 0.18),
+        transparent 50%
+    );
+}
+
+[data-theme="light"] .spotlight::after {
+    background: radial-gradient(
+        420px circle at calc(var(--mx) * 1%) calc(var(--my) * 1%),
+        rgba(108, 99, 255, 0.10),
+        transparent 55%
+    );
+}
+
+.spotlight:hover::after { opacity: 1; }
+
+/* 让卡片内的子元素位于光斑上层 */
+.spotlight > * { position: relative; z-index: 1; }
+
+/* --- 顶部滚动进度条 --- */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 2000;
+    background: var(--gradient-1);
+    transform-origin: left center;
+    transform: scaleX(var(--progress, 0));
+    transition: transform 0.1s linear;
+    box-shadow: 0 0 12px var(--accent-glow);
+    pointer-events: none;
+}
+
+/* --- 返回顶部浮钮 --- */
+.back-to-top {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 14px;
+    background: var(--gradient-1);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px) scale(0.85);
+    pointer-events: none;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 24px var(--accent-glow);
+    z-index: 1500;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.back-to-top:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 10px 32px var(--accent-glow);
+}
+
+.back-to-top:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* --- Toast 通知系统 --- */
+.toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast {
+    min-width: 220px;
+    max-width: 360px;
+    padding: 12px 18px;
+    border-radius: 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    pointer-events: auto;
+    animation: toastIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+}
+
+[data-theme="dark"] .toast {
+    background: rgba(26, 26, 46, 0.92);
+}
+
+[data-theme="light"] .toast {
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 12px 36px rgba(108, 99, 255, 0.15);
+}
+
+.toast.hide { animation: toastOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+.toast-icon { font-size: 1.1rem; line-height: 1; }
+.toast-success { border-left: 3px solid #2ed573; }
+.toast-error   { border-left: 3px solid #ff4757; }
+.toast-info    { border-left: 3px solid var(--accent); }
+
+@keyframes toastIn {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes toastOut {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(40px); }
+}
+
+/* --- 焦点可见样式（键盘无障碍） --- */
+*:focus { outline: none; }
+*:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+button:focus-visible, a:focus-visible {
+    box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+/* --- 工具详情面板：也是 spotlight 容器 --- */
+.tool-detail-panel.active {
+    position: relative;
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+}
+
+[data-theme="dark"] .tool-detail-panel {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.75) 0%, rgba(18, 18, 26, 0.85) 100%);
+}
+[data-theme="light"] .tool-detail-panel {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 250, 0.8) 100%);
+}
+
+/* --- UUID 列表样式 --- */
+.uuid-list {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.uuid-list:empty::before {
+    content: '点击「生成」按钮，UUID 会显示在这里';
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 24px;
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    display: block;
+}
+
+[lang="en"] .uuid-list:empty::before {
+    content: 'Click "Generate" — UUIDs will appear here';
+}
+
+.uuid-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+.uuid-item:hover {
+    border-color: var(--accent);
+    transform: translateX(2px);
+}
+
+.uuid-text {
+    flex: 1;
+    font-family: 'Courier New', ui-monospace, monospace;
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    user-select: all;
+    word-break: break-all;
+}
+
+.uuid-copy-btn {
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+    flex-shrink: 0;
+}
+
+.uuid-copy-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent-light);
+    background: rgba(108, 99, 255, 0.08);
+}
+
+/* --- 自定义滚动条（UUID 列表） --- */
+.uuid-list::-webkit-scrollbar { width: 6px; }
+.uuid-list::-webkit-scrollbar-track { background: transparent; }
+.uuid-list::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+.uuid-list::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* --- URL 工具输入输出框 --- */
+#url-input, #url-output {
+    width: 100%;
+    padding: 14px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    resize: vertical;
+    outline: none;
+    transition: var(--transition);
+}
+
+#url-input:focus { border-color: var(--accent); }
+#url-output { margin-bottom: 8px; }
+
+/* --- 减少动效（无障碍） --- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .aurora, .grid-layer { animation: none !important; }
+}
+
+/* --- 移动端补丁 --- */
+@media (max-width: 768px) {
+    .back-to-top {
+        right: 16px;
+        bottom: 16px;
+        width: 42px;
+        height: 42px;
+    }
+    .toast-container {
+        top: 16px;
+        right: 16px;
+        left: 16px;
+    }
+    .toast {
+        min-width: 0;
+        max-width: 100%;
+    }
+    .aurora-1, .aurora-2, .aurora-3 {
+        filter: blur(60px);
+        opacity: 0.45;
+    }
 }

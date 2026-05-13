@@ -1,5 +1,5 @@
 /* ============================================
-   工具箱 - JavaScript
+   工具箱 - JavaScript (v5)
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,18 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
         card.addEventListener('click', () => {
             const tool = card.dataset.tool;
 
-            // 隐藏卡片网格，显示详情
             toolCards.style.display = 'none';
             toolDetail.style.display = 'block';
 
-            // 隐藏所有详情面板
             document.querySelectorAll('.tool-detail-panel').forEach(p => p.classList.remove('active'));
 
-            // 显示对应面板
             const panel = document.getElementById('detail-' + tool);
             if (panel) panel.classList.add('active');
 
-            // 滚动到顶部
             document.getElementById('tools').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     });
@@ -35,6 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
         toolCards.style.display = 'grid';
         document.getElementById('tools').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+
+    /* ---- 通用复制（带 toast 反馈） ---- */
+    function doCopy(text) {
+        if (!text) {
+            window.showToast && window.showToast('没有可复制的内容', 'info');
+            return;
+        }
+        window.copyToClipboard
+            ? window.copyToClipboard(text)
+            : navigator.clipboard.writeText(text);
+    }
 
     /* ============================================
        1. 密码生成器
@@ -78,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
             password += chars[Math.floor(Math.random() * chars.length)];
         }
 
-        // 确保每种选中类型至少包含一个字符
         let result = password;
         const types = [];
         if (pwUpper.checked) types.push(upper);
@@ -106,25 +112,29 @@ document.addEventListener('DOMContentLoaded', () => {
         return Math.min(100, score);
     }
 
+    function tt(key, fallback) {
+        return (typeof t === 'function') ? t(key) : fallback;
+    }
+
     function updateStrength(pw) {
         const score = calcStrength(pw);
         pwStrengthFill.style.width = score + '%';
 
         if (score < 30) {
             pwStrengthFill.style.background = '#ff4757';
-            pwStrengthLabel.textContent = '弱';
+            pwStrengthLabel.textContent = tt('tool_pw_weak', '弱');
             pwStrengthLabel.style.color = '#ff4757';
         } else if (score < 60) {
             pwStrengthFill.style.background = '#ffa502';
-            pwStrengthLabel.textContent = '中';
+            pwStrengthLabel.textContent = tt('tool_pw_medium', '中');
             pwStrengthLabel.style.color = '#ffa502';
         } else if (score < 80) {
             pwStrengthFill.style.background = '#2ed573';
-            pwStrengthLabel.textContent = '强';
+            pwStrengthLabel.textContent = tt('tool_pw_strong', '强');
             pwStrengthLabel.style.color = '#2ed573';
         } else {
             pwStrengthFill.style.background = '#1e90ff';
-            pwStrengthLabel.textContent = '非常强';
+            pwStrengthLabel.textContent = tt('tool_pw_verystrong', '非常强');
             pwStrengthLabel.style.color = '#1e90ff';
         }
     }
@@ -135,17 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateStrength(pw);
     });
 
-    pwCopy.addEventListener('click', () => {
-        pwResult.select();
-        navigator.clipboard.writeText(pwResult.value).then(() => {
-            pwCopy.textContent = '✅ 已复制';
-            setTimeout(() => { pwCopy.textContent = '复制'; }, 1500);
-        }).catch(() => {
-            document.execCommand('copy');
-            pwCopy.textContent = '✅ 已复制';
-            setTimeout(() => { pwCopy.textContent = '复制'; }, 1500);
-        });
-    });
+    pwCopy.addEventListener('click', () => doCopy(pwResult.value));
 
     // 初始化
     const initialPw = generatePassword();
@@ -203,6 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
             b64Output.value = btoa(unescape(encodeURIComponent(b64Input.value)));
         } catch (e) {
             b64Output.value = '❌ 编码失败';
+            window.showToast && window.showToast('编码失败', 'error');
         }
     });
 
@@ -211,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
             b64Output.value = decodeURIComponent(escape(atob(b64Input.value)));
         } catch (e) {
             b64Output.value = '❌ 解码失败：请确认输入是有效的 Base64 字符串';
+            window.showToast && window.showToast('解码失败：非法 Base64', 'error');
         }
     });
 
@@ -219,17 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         b64Output.value = '';
     });
 
-    b64Copy.addEventListener('click', () => {
-        b64Output.select();
-        navigator.clipboard.writeText(b64Output.value).then(() => {
-            b64Copy.textContent = '✅ 已复制';
-            setTimeout(() => { b64Copy.textContent = '复制结果'; }, 1500);
-        }).catch(() => {
-            document.execCommand('copy');
-            b64Copy.textContent = '✅ 已复制';
-            setTimeout(() => { b64Copy.textContent = '复制结果'; }, 1500);
-        });
-    });
+    b64Copy.addEventListener('click', () => doCopy(b64Output.value));
 
     /* ============================================
        4. JSON 格式化
@@ -280,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         try {
             JSON.parse(input);
-            jsonStatus.textContent = '✅ JSON 格式正确 ✅';
+            jsonStatus.textContent = '✅ JSON 格式正确';
             jsonStatus.style.color = '#2ed573';
         } catch (e) {
             jsonStatus.textContent = '❌ JSON 格式错误：' + e.message;
@@ -294,17 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         jsonStatus.textContent = '';
     });
 
-    jsonCopy.addEventListener('click', () => {
-        jsonOutput.select();
-        navigator.clipboard.writeText(jsonOutput.value).then(() => {
-            jsonCopy.textContent = '✅ 已复制';
-            setTimeout(() => { jsonCopy.textContent = '复制结果'; }, 1500);
-        }).catch(() => {
-            document.execCommand('copy');
-            jsonCopy.textContent = '✅ 已复制';
-            setTimeout(() => { jsonCopy.textContent = '复制结果'; }, 1500);
-        });
-    });
+    jsonCopy.addEventListener('click', () => doCopy(jsonOutput.value));
 
     /* ============================================
        5. 时间戳转换
@@ -377,5 +359,142 @@ document.addEventListener('DOMContentLoaded', () => {
             hour: '2-digit', minute: '2-digit', second: '2-digit',
             hour12: false
         }) + ' (北京时间)';
+    });
+
+    /* ============================================
+       6. URL 编解码
+       ============================================ */
+    const urlInput = document.getElementById('url-input');
+    const urlOutput = document.getElementById('url-output');
+    const urlEncode = document.getElementById('url-encode');
+    const urlDecode = document.getElementById('url-decode');
+    const urlClear = document.getElementById('url-clear');
+    const urlCopy = document.getElementById('url-copy');
+
+    if (urlEncode) {
+        urlEncode.addEventListener('click', () => {
+            try {
+                urlOutput.value = encodeURIComponent(urlInput.value);
+            } catch (e) {
+                urlOutput.value = '❌ 编码失败';
+                window.showToast && window.showToast('URL 编码失败', 'error');
+            }
+        });
+
+        urlDecode.addEventListener('click', () => {
+            try {
+                urlOutput.value = decodeURIComponent(urlInput.value);
+            } catch (e) {
+                urlOutput.value = '❌ 解码失败：含非法编码序列';
+                window.showToast && window.showToast('URL 解码失败', 'error');
+            }
+        });
+
+        urlClear.addEventListener('click', () => {
+            urlInput.value = '';
+            urlOutput.value = '';
+        });
+
+        urlCopy.addEventListener('click', () => doCopy(urlOutput.value));
+    }
+
+    /* ============================================
+       7. UUID v4 生成器
+       ============================================ */
+    const uuidCount = document.getElementById('uuid-count');
+    const uuidUpper = document.getElementById('uuid-upper');
+    const uuidDash = document.getElementById('uuid-dash');
+    const uuidGenerate = document.getElementById('uuid-generate');
+    const uuidCopy = document.getElementById('uuid-copy');
+    const uuidClear = document.getElementById('uuid-clear');
+    const uuidList = document.getElementById('uuid-list');
+
+    function generateUUIDv4() {
+        // 优先使用浏览器原生（更安全的随机源）
+        if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+            return window.crypto.randomUUID();
+        }
+        // 降级实现（兼容老浏览器）
+        if (window.crypto && window.crypto.getRandomValues) {
+            const buf = new Uint8Array(16);
+            window.crypto.getRandomValues(buf);
+            buf[6] = (buf[6] & 0x0f) | 0x40; // version 4
+            buf[8] = (buf[8] & 0x3f) | 0x80; // variant
+            const hex = [];
+            for (let i = 0; i < 16; i++) hex.push(buf[i].toString(16).padStart(2, '0'));
+            return `${hex.slice(0,4).join('')}-${hex.slice(4,6).join('')}-${hex.slice(6,8).join('')}-${hex.slice(8,10).join('')}-${hex.slice(10,16).join('')}`;
+        }
+        // 最弱兜底
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    function renderUUIDList() {
+        const n = Math.max(1, Math.min(100, parseInt(uuidCount.value) || 5));
+        uuidCount.value = n;
+        uuidList.innerHTML = '';
+        const frag = document.createDocumentFragment();
+        for (let i = 0; i < n; i++) {
+            let uuid = generateUUIDv4();
+            if (!uuidDash.checked) uuid = uuid.replace(/-/g, '');
+            if (uuidUpper.checked) uuid = uuid.toUpperCase();
+
+            const item = document.createElement('div');
+            item.className = 'uuid-item';
+
+            const span = document.createElement('span');
+            span.className = 'uuid-text';
+            span.textContent = uuid;
+
+            const btn = document.createElement('button');
+            btn.className = 'uuid-copy-btn';
+            btn.type = 'button';
+            btn.textContent = '复制';
+            btn.addEventListener('click', () => doCopy(uuid));
+
+            item.appendChild(span);
+            item.appendChild(btn);
+            frag.appendChild(item);
+        }
+        uuidList.appendChild(frag);
+    }
+
+    if (uuidGenerate) {
+        uuidGenerate.addEventListener('click', renderUUIDList);
+
+        uuidCopy.addEventListener('click', () => {
+            const all = Array.from(uuidList.querySelectorAll('.uuid-text'))
+                .map(el => el.textContent)
+                .join('\n');
+            doCopy(all);
+        });
+
+        uuidClear.addEventListener('click', () => {
+            uuidList.innerHTML = '';
+        });
+
+        // 切换格式时实时刷新（如果列表非空）
+        uuidUpper.addEventListener('change', () => {
+            if (uuidList.children.length) renderUUIDList();
+        });
+        uuidDash.addEventListener('change', () => {
+            if (uuidList.children.length) renderUUIDList();
+        });
+
+        // 首次进入工具时生成一批，让界面不空
+        renderUUIDList();
+    }
+
+    /* ---- 语言切换时刷新工具内部硬编码文案 ---- */
+    document.addEventListener('langchange', () => {
+        // 重新评估当前密码强度，让标签按新语言显示
+        if (pwResult && pwResult.value) updateStrength(pwResult.value);
+        // 重新生成 UUID copy 按钮文本
+        document.querySelectorAll('.uuid-copy-btn').forEach(b => {
+            b.textContent = tt('tool_pw_copy', '复制');
+        });
     });
 });

@@ -29,6 +29,7 @@ const i18n = {
     stat_exp: '年+经验',
     stat_proj: '+项目',
     stat_online: '/7 在线',
+    stat_repos: '开源仓库',
 
     /* 技能 */
     skills_title: '技能栈',
@@ -51,6 +52,10 @@ const i18n = {
     tool_json_desc: '格式化、压缩、校验 JSON 字符串，定位错误',
     tool_timestamp: '时间戳转换',
     tool_timestamp_desc: 'Unix 时间戳与日期时间互转，快捷取当前时间',
+    tool_url: 'URL 编解码',
+    tool_url_desc: '对 URL 中的特殊字符进行编码与解码',
+    tool_uuid: 'UUID 生成器',
+    tool_uuid_desc: '生成符合 RFC 4122 的随机 UUID v4',
     tool_back: '← 返回工具箱',
     tool_pw_title: '🔑 密码生成器',
     tool_pw_length: '密码长度',
@@ -95,6 +100,28 @@ const i18n = {
     tool_ts_quick: '快捷：',
     tool_ts_now: '现在',
     tool_ts_today: '今天 00:00',
+
+    /* URL 编解码 */
+    tool_url_title: '🔗 URL 编解码',
+    tool_url_placeholder: '输入要编码或解码的 URL 字符串...',
+    tool_url_encode: '编码 →',
+    tool_url_decode: '解码 →',
+    tool_url_clear: '清空',
+    tool_url_copy: '复制结果',
+
+    /* UUID 生成器 */
+    tool_uuid_title: '🆔 UUID v4 生成器',
+    tool_uuid_count: '生成数量',
+    tool_uuid_gen: '🎲 生成',
+    tool_uuid_format_upper: '大写',
+    tool_uuid_format_dash: '保留连字符',
+    tool_uuid_copy: '复制全部',
+    tool_uuid_clear: '清空',
+
+    /* Toast & 通用 */
+    toast_copied: '已复制到剪贴板',
+    toast_copy_failed: '复制失败',
+    aria_back_to_top: '返回顶部',
 
     /* 项目 */
     projects_title: '我的项目',
@@ -145,6 +172,7 @@ const i18n = {
     stat_exp: '+ Years Exp',
     stat_proj: '+ Projects',
     stat_online: '/7 Online',
+    stat_repos: 'Open Repos',
 
     skills_title: 'Skills',
     skill_backend: 'Backend',
@@ -165,6 +193,10 @@ const i18n = {
     tool_json_desc: 'Format, minify, and validate JSON strings with error location',
     tool_timestamp: 'Timestamp Converter',
     tool_timestamp_desc: 'Convert between Unix timestamps and date/time',
+    tool_url: 'URL Encode/Decode',
+    tool_url_desc: 'Encode and decode special characters in URLs',
+    tool_uuid: 'UUID Generator',
+    tool_uuid_desc: 'Generate RFC 4122 compliant random UUID v4',
     tool_back: '← Back to Tools',
     tool_pw_title: '🔑 Password Generator',
     tool_pw_length: 'Password Length',
@@ -209,6 +241,28 @@ const i18n = {
     tool_ts_quick: 'Quick: ',
     tool_ts_now: 'Now',
     tool_ts_today: 'Today 00:00',
+
+    /* URL Codec */
+    tool_url_title: '🔗 URL Encode / Decode',
+    tool_url_placeholder: 'Enter URL string to encode or decode...',
+    tool_url_encode: 'Encode →',
+    tool_url_decode: 'Decode →',
+    tool_url_clear: 'Clear',
+    tool_url_copy: 'Copy Result',
+
+    /* UUID */
+    tool_uuid_title: '🆔 UUID v4 Generator',
+    tool_uuid_count: 'Count',
+    tool_uuid_gen: '🎲 Generate',
+    tool_uuid_format_upper: 'Uppercase',
+    tool_uuid_format_dash: 'Keep hyphens',
+    tool_uuid_copy: 'Copy All',
+    tool_uuid_clear: 'Clear',
+
+    /* Toast */
+    toast_copied: 'Copied to clipboard',
+    toast_copy_failed: 'Copy failed',
+    aria_back_to_top: 'Back to top',
 
     projects_title: 'Projects',
     proj1_title: 'Auto Ops Platform',

@@ -1,5 +1,7 @@
 /* ============================================
    主题切换 (Dark / Light / System)
+   注：首次绘制前的主题应用由 index.html <head> 内联脚本完成（消除 FOUC）
+   本文件仅负责：暴露 applyTheme/switchLang、监听系统变化、同步按钮 active
    ============================================ */
 
 const THEME_KEY = 'theme';
@@ -24,23 +26,35 @@ function applyTheme(theme) {
   document.querySelectorAll('.theme-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.theme === theme);
   });
+
+  // 同步浏览器 UI 颜色（地址栏等）
+  const metaTheme = document.querySelector('meta[name="theme-color"]:not([media])');
+  if (metaTheme) {
+    metaTheme.setAttribute('content', effective === DARK ? '#0a0a0f' : '#f5f5fa');
+  }
 }
 
-// 语言切换（供 onclick 调用）
 function switchLang(lang) {
   if (typeof setLang === 'function') {
     setLang(lang);
   }
 }
 
-// 监听系统主题变化
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
   if (getSavedTheme() === SYSTEM) {
     applyTheme(SYSTEM);
   }
 });
 
-// 初始化
 document.addEventListener('DOMContentLoaded', () => {
-  applyTheme(getSavedTheme());
+  const savedTheme = getSavedTheme();
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.theme === savedTheme);
+  });
+
+  const savedLang = (typeof getCurrentLang === 'function' && getCurrentLang()) ||
+                    localStorage.getItem('lang') || 'zh';
+  if (typeof setLang === 'function') {
+    setLang(savedLang);
+  }
 });
